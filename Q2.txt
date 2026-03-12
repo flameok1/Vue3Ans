@@ -1,0 +1,23 @@
+Q2:
+Now there are 50,000 people using. You only have 1~2 days to optimize, what options
+do you have? And which one do you pick?
+
+碰到這問題代表一開始沒考慮到autoscale問題，前後端分開情況，假設取api資料的時候是有loading設計的，可能方案如下:
+1.開啟前端autoscale，搭配alb功能分流，讓前端不卡，因為有loading設計不至於等候端回應卡死突兀
+2.調高前端伺服器配備，但單1server承受力有限
+3.多開一些EC2用route分流，如果資料庫在某個ec2會比較麻煩，建議資料庫放到單1資料庫服務
+
+
+我選擇1，開啟alb，沒設定autoscale可以先訂死，比如說加開前端ec2，可以用route分流也可以用alb
+
+
+
+ It is already designed as infinite scroll. Users are complaining it is using too much RAM
+on their device. What do you do? 
+
+
+卷軸有2種，一次最多顯示10筆，但內容有300(假設)筆：
+種類1. 完整300筆都在記憶體內，那有可能會出現題目狀況，不是好設計
+種類2. 卷軸實際資料可能是15筆，在卷的時候循環替換，不要配置過多沒顯示物件，至於記憶體中資料可以適當釋放，需要的時候再打api取，主要是看壓記憶體程度
+
+建議使用種類2

@@ -1,0 +1,13 @@
+Q1b: Based on your past experience with Vue3, share your thoughts and feedbacks on
+Vue3. What pros and cons.
+
+
+優點:
+1.Vue2=>Vue3: 我認為，相比Vue2 script程式碼擠成一堆的狀況，Vue3的寫script部分是比較好的
+2.比如說v-for是直接寫在html語法裡面，其實我覺得比較直觀，想法上能明確知道是這個東西在跑for迴圈，相比react的迴圈是放在外面，各有優缺點
+3.Vue3明確分開了html語法和javascript，react是用reture分開，感覺沒這麼明顯
+4.css可以單個檔案獨立，這很好用，但我沒有確認這是不是特有功能
+
+缺點:
+1.Vue3沒有ssr功能，可以生成成Nxut，但Nuxt相比Next較不成熟，至少我用起來感覺比較卡
+2.可能會有人認為v-for v-if等語法混在html中是個問題，但我覺得沒差

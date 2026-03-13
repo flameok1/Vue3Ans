@@ -1,0 +1,8 @@
+Q5:
+
+先針對呼叫頻率高的php後端function做redis cache，但不是更新到EC2上
+開一個新的EC2，將新版application更新上去，然後將接口轉到新EC2
+更新舊EC2 application版本，將接口轉回舊EC2
+移除新EC2
+
+

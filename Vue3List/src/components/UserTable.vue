@@ -13,7 +13,7 @@ const emits = defineEmits<{
   (e: 'delete', user: User): void;
 }>();
 
-const headers: { key: keyof User; label: string }[] = [
+const sortableHeaders: { key: keyof User; label: string }[] = [
   { key: 'username', label: '使用者名稱' },
   { key: 'position', label: '職位' },
   { key: 'location', label: '地點' },
@@ -32,12 +32,28 @@ function sortIcon(key: keyof User) {
 </script>
 
 <template>
+  <div class="user-table-mobile-sort">
+    <div class="user-table-mobile-sort-title">排序</div>
+    <div class="user-table-mobile-sort-buttons">
+      <button
+        v-for="header in sortableHeaders"
+        :key="header.key"
+        type="button"
+        class="user-table-mobile-sort-button"
+        @click="sortBy(header.key)"
+      >
+        <span class="user-table-mobile-sort-label">{{ header.label }}</span>
+        <span class="user-table-mobile-sort-icon">{{ sortIcon(header.key) }}</span>
+      </button>
+    </div>
+  </div>
+
   <div class="user-table-wrapper">
     <table class="user-table">
       <thead class="user-table-head">
         <tr>
           <th
-            v-for="header in headers"
+            v-for="header in sortableHeaders"
             :key="header.key"
             scope="col"
             class="user-table-header-cell"
@@ -53,6 +69,7 @@ function sortIcon(key: keyof User) {
               </span>
             </button>
           </th>
+          <th scope="col" class="user-table-header-cell">Order</th>
           <th
             scope="col"
             class="user-table-header-cell user-table-header-actions"
@@ -68,6 +85,7 @@ function sortIcon(key: keyof User) {
           <td class="user-table-cell">{{ user.location }}</td>
           <td class="user-table-cell">{{ user.age }}</td>
           <td class="user-table-cell">{{ user.birthdate }}</td>
+          <td class="user-table-cell">{{ user.order }}</td>
           <td class="user-table-cell user-table-cell-actions">
             <div class="user-table-actions">
               <button
@@ -93,6 +111,60 @@ function sortIcon(key: keyof User) {
 </template>
 
 <style scoped>
+.user-table-mobile-sort {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  padding: 12px;
+}
+
+@media (min-width: 768px) {
+  .user-table-mobile-sort {
+    display: none;
+  }
+}
+
+.user-table-mobile-sort-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.user-table-mobile-sort-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.user-table-mobile-sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: #ffffff;
+  color: #374151;
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease,
+    color 0.12s ease;
+}
+
+.user-table-mobile-sort-button:hover {
+  background-color: #f9fafb;
+  border-color: #c7cdd6;
+}
+
+.user-table-mobile-sort-icon {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
 .user-table-wrapper {
   display: none;
   width: 100%;

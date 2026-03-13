@@ -18,6 +18,7 @@ const form = reactive<Omit<User, 'id'>>({
   location: '',
   age: 18,
   birthdate: '',
+  order: 0,
 });
 
 const isEdit = computed(() => !!props.user);
@@ -31,12 +32,14 @@ watch(
       form.location = user.location;
       form.age = user.age;
       form.birthdate = user.birthdate;
+      form.order = user.order;
     } else {
       form.username = '';
       form.position = '';
       form.location = '';
       form.age = 18;
       form.birthdate = '';
+      form.order = 0;
     }
   },
   { immediate: true },
@@ -115,6 +118,17 @@ function handleSubmit() {
         <input
           v-model="form.birthdate"
           type="date"
+          required
+          class="form-input"
+        />
+      </div>
+
+      <div>
+          <label class="form-label">Order</label>
+          <input
+          v-model.number="form.order"
+          type="number"
+          min="0"
           required
           class="form-input"
         />

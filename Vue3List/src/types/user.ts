@@ -5,6 +5,7 @@ export interface User {
   location: string;
   age: number;
   birthdate: string;
+  order: number;
 }
 
 export interface UserQueryParams {
